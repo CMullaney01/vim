@@ -1,0 +1,113 @@
+Vim Cheat Sheet for VS Code
+1. Modes
+Normal Mode:
+Press Esc to enter Normal mode (default mode for navigation and commands).
+
+Insert Mode:
+Press i to enter Insert mode for text editing.
+Press Esc to return to Normal mode.
+
+Visual Mode:
+Press v to enter Visual Mode (for selecting text).
+Use Esc to return to Normal mode.
+
+There are three types of Visual Mode:
+
+Visual Character Mode (v): Select text character by character.
+Visual Line Mode (V): Select entire lines of text.
+Visual Block Mode (Ctrl-v): Select rectangular blocks of text for columnar editing.
+
+2. Navigation
+Cursor Movement:
+h: Move left
+j: Move down
+k: Move up
+l: Move right
+0: Move to the beginning of the line
+^: Move to the first non-whitespace character of the line
+$: Move to the end of the line
+w: Move to the start of the next word
+e: Move to the end of the current/next word
+b: Move to the start of the previous word
+gg: Move to the top of the file
+G: Move to the bottom of the file
+Ctrl-d: Scroll down half a screen
+Ctrl-u: Scroll up half a screen
+
+3. Editing
+Basic Editing:
+x: Delete the character under the cursor
+dd: Delete the current line
+yy: Copy (yank) the current line
+p: Paste the copied text below the cursor
+u: Undo the last action
+Ctrl-r: Redo the undone action
+r: Replace the character under the cursor
+ciw: Change (replace) the current word
+cw: Change (replace) from the cursor to the end of the word
+daw: Delete the word under the cursor (including spaces)
+di": Delete inside quotes
+
+4. Searching
+/pattern: Search for a pattern forward
+n: Jump to the next match
+N: Jump to the previous match
+?pattern: Search for a pattern backward
+*: Search for the word under the cursor downward
+#: Search for the word under the cursor upward
+
+5. Indentation
+>>: Indent the current line
+<<: Unindent the current line
+=: Auto-format the selected code or line
+
+6. Working with Files
+:w: Save the current file
+:q: Quit Vim (close the editor)
+:wq: Save and quit
+:q!: Quit without saving changes
+:e filename: Open a file
+:vsp filename: Open a file in a vertical split
+:sp filename: Open a file in a horizontal split
+7. Splits and Tabs
+Ctrl-w s: Split the window horizontally
+Ctrl-w v: Split the window vertically
+Ctrl-w w: Switch between splits
+:tabnew: Open a new tab
+gt: Move to the next tab
+gT: Move to the previous tab
+
+8. Features Supported by the VSCodeVim Extension
+Basic Vim Modes:
+Supports Normal, Insert, Visual, and Command-line modes.
+Registers:
+Supports Vim's registers (e.g., "a, "0, etc.).
+Macros:
+Record and replay macros using q followed by a register name (e.g., qa to record a macro into register a).
+Search and Replace:
+Search using / and ?.
+Replace text using :s commands.
+Multi-Cursor Support:
+Use Ctrl-n to create multiple cursors and edit simultaneously.
+Leader Key:
+Supports defining custom commands with the Leader key (configurable in settings).
+Visual Block Mode:
+Supports Visual Block Mode with Ctrl-v to select and manipulate blocks of text.
+How to Use Visual Mode
+Enter Visual Mode:
+
+Press v to start Character Mode selection.
+Press V to start Line Mode selection (select whole lines).
+Press Ctrl-v for Block Mode (select rectangular blocks of text).
+Move the Cursor:
+
+Use h, j, k, l or other movement keys to expand or shrink the selection.
+Perform Actions:
+
+Delete: d
+Yank (Copy): y
+Change (replace): c
+Indent: > to indent, < to unindent
+Exit Visual Mode:
+
+Press Esc to return to Normal mode.
