@@ -4,6 +4,7 @@ I am learning to use Vim with baby steps and as such I have added vim bindings t
 
 # Project layout
 
+```
 chip8-emulator/
 ├── README.md
 ├── src/
@@ -15,6 +16,7 @@ chip8-emulator/
 ├── tests/
 │ ├── test_chip8.cpp # Unit tests for the CHIP-8 core
 ├── roms/ # Folder for CHIP-8 ROMs to load and test
+```
 
 # Cowgod's Chip8 technical reference
 
