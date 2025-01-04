@@ -11,10 +11,21 @@ void renderGraphics(const Chip8 &chip8, SDL_Renderer *renderer);
 
 int main(int argc, char **argv)
 {
-    if (argc != 2)
+    bool debugEnabled = false;
+
+    if (argc < 2 || argc > 3)
     {
-        std::cerr << "Usage: " << argv[0] << " <ROM file>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <ROM file> [-debug]" << std::endl;
         return 1;
+    }
+
+    std::string romFile = argv[1];
+
+    // Check for the -debug flag
+    if (argc == 3 && std::string(argv[2]) == "-debug")
+    {
+        debugEnabled = true;
+        std::cout << "Debug mode enabled" << std::endl;
     }
 
     // Initialize SDL
@@ -49,7 +60,7 @@ int main(int argc, char **argv)
 
     // Initialize CHIP-8
     Chip8 chip8(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_SCALE);
-
+    chip8.setDebug(debugEnabled);
     chip8.initialiseFontset();
     if (!chip8.loadROM(argv[1]))
     {

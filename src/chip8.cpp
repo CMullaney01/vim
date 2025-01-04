@@ -3,6 +3,8 @@
 #include <fstream>
 #include <cstring>
 #include <SDL2/SDL.h>
+#include <iomanip>
+#include <sstream>
 
 const unsigned char fontset[80] = {
     0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
@@ -32,7 +34,7 @@ Chip8::Chip8(int SCREEN_WIDTH, int SCREEN_HEIGHT, int WINDOW_SCALE)
     memset(memory, 0, sizeof(memory));
     memset(V, 0, sizeof(V));
 
-    pc = 0x200; // Explained in README
+    pc = 0x200;
     sp = 0;
 
     delayTimer = 0;
@@ -122,9 +124,21 @@ void Chip8::reset()
     initialiseFontset();
 }
 
+void Chip8::setDebug(bool isDebug)
+{
+    debug = isDebug;
+}
 // Emulate one cycle: fetch, decode, and execute opcode
 void Chip8::emulateCycle()
 {
+    if (pc < 0x200 || pc >= 0xFFF)
+    {
+        std::cerr << "Debug: PC out of bounds: " << std::hex << pc << std::endl;
+
+        throw std::runtime_error("Program Counter out of bounds");
+    }
+
+    printState();
     uint16_t opcode = fetchOpcode();
     decodeAndExecute(opcode);
     updateTimers();
@@ -143,7 +157,9 @@ void Chip8::decodeAndExecute(uint16_t opcode)
         std::cerr << "Unknown Opcode: " << std::hex << opcode << std::endl;
         // Optionally throw an exception or log error
     };
-
+    std::stringstream ss;
+    ss << std::hex << std::uppercase << opcode;
+    debugPrint("Debugging opcode: " + ss.str());
     switch (opcode & 0xF000)
     {
     case 0x0000:
@@ -532,5 +548,37 @@ void Chip8::op_FX0A(uint16_t opcode)
                 }
             }
         }
+    }
+}
+
+// Debug print function
+void Chip8::debugPrint(const std::string &msg)
+{
+    if (debug)
+    {
+        std::cerr << msg << std::endl;
+    }
+}
+
+void Chip8::printState()
+{
+    if (debug)
+    {
+        std::cout << "PC: " << std::to_string(pc) << "\n";
+        std::cout << "I: " << std::hex << I << "\n";
+        std::cout << "Delay Timer: " << std::dec << (int)delayTimer << "\n";
+        std::cout << "Sound Timer: " << std::dec << (int)soundTimer << "\n";
+        std::cout << "Registers: \n";
+        for (int i = 0; i < 16; ++i)
+        {
+            std::cout << "V[" << i << "]: " << std::hex << (int)V[i] << " ";
+        }
+        std::cout << "\n";
+        std::cout << "Stack: \n";
+        for (int i = 0; i < 16; ++i)
+        {
+            std::cout << std::hex << (int)stack[i] << " ";
+        }
+        std::cout << "\n";
     }
 }

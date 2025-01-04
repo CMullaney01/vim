@@ -8,12 +8,13 @@
 class Chip8
 {
 public:
+    bool debug;
     // Memory and registers
     uint8_t memory[4096]; // 4KB of memory
     uint8_t V[16];        // General-purpose registers (V0 to VF)
     uint16_t I;           // memory address pointer
     uint16_t pc;          // Program counter
-    uint8_t stack[16];    // Stack (16 levels)
+    uint16_t stack[16];   // Stack (16 levels)
     uint8_t sp;           // Stack pointer
 
     // Timers
@@ -39,6 +40,7 @@ public:
     void updateTimers();
     void handleInput(SDL_Event &e);
     void reset();
+    void setDebug(bool isDebug);
 
 private:
     uint16_t fetchOpcode();
@@ -81,6 +83,10 @@ private:
     void op_FX33(uint16_t opcode); // LD B, Vx
     void op_FX55(uint16_t opcode); // LD [I], Vx
     void op_FX65(uint16_t opcode); // LD Vx, [I]
+
+    // Util
+    void debugPrint(const std::string &msg);
+    void printState();
 };
 
 #endif // CHIP8_H
